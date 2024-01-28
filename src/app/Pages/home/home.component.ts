@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from 'src/app/Services/api.service';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-home',
@@ -8,8 +9,11 @@ import { ApiService } from 'src/app/Services/api.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
   userForm!: FormGroup;
-  myusers: any;
+  // myusers: any;
+  myusers: any[] = [];
   filteredUser: any[] = [];
   serachTerm: string = '';
 
@@ -60,8 +64,15 @@ export class HomeComponent implements OnInit {
     this.apiService.getUsers().subscribe((users: any) => {
       this.myusers = users;
       console.log("this.users", this.myusers);
+      this.setupPaginator();
 
     })
+  }
+
+  setupPaginator() {
+    if (this.paginator) {
+      this.paginator.length = this.myusers.length;
+    }
   }
 
   editUser(editUsers: any) {
@@ -89,17 +100,17 @@ export class HomeComponent implements OnInit {
   }
 
   filteredUsers() {
-    const serachTermLower = this.serachTerm.toLowerCase();
-    if (serachTermLower) {
-      this.filteredUser = this.myusers.filter((user: any) => {
-        const fullName = `${user.firstname} ${user.lastname}`.toLowerCase();
-        return fullName.includes(serachTermLower) || user.lastname.toLowerCase().includes(serachTermLower);
-      });
-      this.myusers = this.filteredUser;
-      return this.myusers
-    } else {
-      this.myusers = [...this.myusers]
-    }
+    // const serachTermLower = this.serachTerm.toLowerCase();
+    // if (serachTermLower) {
+    //   this.filteredUser = this.myusers.filter((user: any) => {
+    //     const fullName = `${user.firstname} ${user.lastname}`.toLowerCase();
+    //     return fullName.includes(serachTermLower) || user.lastname.toLowerCase().includes(serachTermLower);
+    //   });
+    //   this.myusers = this.filteredUser;
+    //   return this.myusers
+    // } else {
+    //   this.myusers = [...this.myusers]
+    // }
 
 
   }
