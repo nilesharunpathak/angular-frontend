@@ -1,9 +1,19 @@
 <br><br><br>
-<div style="float: left;">
-    <label for="searchTerm"> Search Term</label>
-    <input type="text" class="form-control" id="searchTerm" [(ngModel)]="serachTerm" (ngModelChange)="filteredUsers()">
-</div>
-<button type="button" style="float: right;" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+<!-- your-component.component.html -->
+
+<form class="form-inline mb-3">
+    <label for="searchCriteria">Search By:</label>
+    <select class="form-control mx-2" id="searchCriteria" [(ngModel)]="selectedSearchCriteria" name="searchCriteria">
+      <option value="firstname">Firstname</option>
+      <option value="lastname">Lastname</option>
+      <option value="email">Email</option>
+    </select>
+  
+    <label for="searchTerm">Search Term:</label>
+    <input type="text" class="form-control mx-2" id="searchTerm" [(ngModel)]="searchTerm" name="searchTerm" (input)="onSearchInput()" />
+  </form>
+  
+<button type="button" style="float: right; margin-right: 30px;" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
     Create
 </button>
 <br><br><br>

@@ -11,6 +11,8 @@ import { MatPaginator } from '@angular/material/paginator';
 export class HomeComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
+  selectedSearchCriteria: string = 'firstname'; // Default search criteria
+  searchTerm: string = '';
   userForm!: FormGroup;
   // myusers: any;
   myusers: any[] = [];
@@ -99,19 +101,55 @@ export class HomeComponent implements OnInit {
     })
   }
 
-  filteredUsers() {
-    // const serachTermLower = this.serachTerm.toLowerCase();
-    // if (serachTermLower) {
-    //   this.filteredUser = this.myusers.filter((user: any) => {
-    //     const fullName = `${user.firstname} ${user.lastname}`.toLowerCase();
-    //     return fullName.includes(serachTermLower) || user.lastname.toLowerCase().includes(serachTermLower);
-    //   });
-    //   this.myusers = this.filteredUser;
-    //   return this.myusers
-    // } else {
-    //   this.myusers = [...this.myusers]
-    // }
+ // your-component.ts
 
+// your-component.ts
 
+// your-component.ts
+
+// your-component.ts
+
+onSearchInput() {
+  const searchTermLower = this.searchTerm.toLowerCase();
+
+  // If the search term is empty, show all users
+  if (!searchTermLower.trim()) {
+    console.log("ifffff");
+    this.myusers = [...this.myusers]; // Copy the original array
+  } else {
+    console.log("else--->");
+    this.filteredUser = this.myusers.filter((user) => {
+      const fieldValue = user[this.selectedSearchCriteria]?.toLowerCase() || '';
+      return fieldValue.includes(searchTermLower);
+    });
+
+    // Update the view with the appropriate data
+    this.myusers = [...this.filteredUser];
   }
+}
+
+// onSearchInput() {
+//   if (this.searchTerm.trim() === '') {
+//     console.log("ifffff");
+    
+//     // If the search term is empty, show all users
+//     this.filteredUser = [];
+//   } else {
+//     console.log("else--->");
+//     this.filteredUser = this.myusers.filter((user) => {
+//       const searchTermLower = this.searchTerm.toLowerCase();
+//       const fieldValue = user[this.selectedSearchCriteria].toLowerCase();
+
+//       return fieldValue.includes(searchTermLower);
+//     });
+//   }
+
+//   // Update the view with the appropriate data
+//   this.myusers = this.filteredUser.length > 0 ? this.filteredUser : [...this.myusers];
+// }
+
+
+
+  
+
 }
